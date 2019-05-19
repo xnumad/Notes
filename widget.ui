@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>780</width>
+    <height>411</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Notes</string>
+  </property>
+  <widget class="QPushButton" name="btnChangeFile">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>360</y>
+     <width>111</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Change</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblFilePath">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>360</y>
+     <width>61</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>File path</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtFilePath">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>360</y>
+     <width>551</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtNote">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>741</width>
+     <height>271</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkAutosave">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>10</y>
+     <width>81</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Autosave</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnSave">
+   <property name="geometry">
+    <rect>
+     <x>686</x>
+     <y>10</y>
+     <width>75</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnAdd">
+   <property name="geometry">
+    <rect>
+     <x>351</x>
+     <y>10</y>
+     <width>81</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string> + Add</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblStatusMessage">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>50</y>
+     <width>741</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <italic>true</italic>
+     <underline>false</underline>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string>No status message</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnReload">
+   <property name="geometry">
+    <rect>
+     <x>441</x>
+     <y>10</y>
+     <width>61</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Undo all changes and load the note in its saved state</string>
+   </property>
+   <property name="text">
+    <string>Reset</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnNextNote">
+   <property name="geometry">
+    <rect>
+     <x>261</x>
+     <y>10</y>
+     <width>80</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Next note &gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnPreviousNote">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>101</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt; Previous note</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblNote">
+   <property name="geometry">
+    <rect>
+     <x>131</x>
+     <y>13</y>
+     <width>41</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Note</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblNoteValue">
+   <property name="geometry">
+    <rect>
+     <x>181</x>
+     <y>13</y>
+     <width>18</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblNoteOf">
+   <property name="geometry">
+    <rect>
+     <x>205</x>
+     <y>13</y>
+     <width>19</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>of</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblNoteSum">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>13</y>
+     <width>18</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>txtNote</tabstop>
+  <tabstop>btnPreviousNote</tabstop>
+  <tabstop>btnNextNote</tabstop>
+  <tabstop>btnAdd</tabstop>
+  <tabstop>btnReload</tabstop>
+  <tabstop>chkAutosave</tabstop>
+  <tabstop>btnSave</tabstop>
+  <tabstop>txtFilePath</tabstop>
+  <tabstop>btnChangeFile</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
