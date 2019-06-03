@@ -36,7 +36,7 @@ bool Widget::setupFile(bool save = false) //Method to open a file stream with re
     if (save) {
         file.open(ui->txtFilePath->text().toStdString(), ios::out|ios::trunc);
     } else {
-        file.open(ui->txtFilePath->text().toStdString(), fstream::in);
+        file.open(ui->txtFilePath->text().toStdString(), ios::in);
     }
     if (!file.good()) { //if file isn't okay
         ui->lblStatusMessage->setText("File does not include note information");
