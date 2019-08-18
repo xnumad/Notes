@@ -58,10 +58,7 @@ void Widget::validateCurrentLine() //Method to validate the string to only conta
                                           )).arg(QString::number(currentLineNr), currentLine.c_str()); //Construct errorMessage with the current line number and its content as placeholder argument
         if (QMessageBox(QMessageBox::Critical, "Error", errorMessage, QMessageBox::Open | QMessageBox::Ignore).exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
             QDesktopServices::openUrl(ui->txtFilePath->text()); //open file using default file handler (e.g. text editor)
-            exit(1); //Close program (exit with return code 1 (failure)) because of the invalid line
-            //qApp->quit(); //shit doesn't work
-            //QApplication::quit(); //either
-            //QCoreApplication::quit(); //????
+            exit(0); //Intentionally (hence with exit code 0 (success)) close program for the user to inspect the file
         }
         //else it will just continue because the user pressed "Ignore" then
     }
@@ -94,7 +91,7 @@ void Widget::loadNotes() //Method to load the notes, is being called on startup 
 
         if (errorBox.exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
             QDesktopServices::openUrl(ui->txtFilePath->text()); //open file using default file handler (e.g. text editor)
-            exit(0); //Close program (exit with return code 0 (success)) so the user can focus on the file that has been opened
+            exit(0); //Intentionally (hence with exit code 0 (success)) close program for the user to inspect the file
         }
         //else it will just continue because the user pressed "Ignore" then
     }
