@@ -57,7 +57,7 @@ void Widget::validateCurrentLine() //Method to validate the string to only conta
                                           "<p>Expected:\tpositive number indicating the length of the following note\n"
                                           )).arg(QString::number(currentLineNr), currentLine.c_str()); //Construct errorMessage with the current line number and its content as placeholder argument
         if (QMessageBox(QMessageBox::Critical, "Error", errorMessage, QMessageBox::Ok | QMessageBox::Ignore).exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
-            QProcess::startDetached("notepad " + ui->txtFilePath->text()); //::execute or ::start would initialize a child process -> disadvantage of having to keep this program open
+            QDesktopServices::openUrl(ui->txtFilePath->text()); //open file using default file handler (e.g. text editor)
             exit(1); //Close program (exit with return code 1 (failure)) because of the invalid line
             //qApp->quit(); //shit doesn't work
             //QApplication::quit(); //either
@@ -93,8 +93,8 @@ void Widget::loadNotes() //Method to load the notes, is being called on startup 
         errorBox.setDefaultButton(QMessageBox::Open);
 
         if (errorBox.exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
-            QProcess::startDetached("notepad " + ui->txtFilePath->text()); //::execute or ::start would initialize a child process -> disadvantage of having to keep this program open
-            exit(0); //Close program (exit with return code 0 (success)) so the user can focus on the file that has been opened in notepad
+            QDesktopServices::openUrl(ui->txtFilePath->text()); //open file using default file handler (e.g. text editor)
+            exit(0); //Close program (exit with return code 0 (success)) so the user can focus on the file that has been opened
         }
         //else it will just continue because the user pressed "Ignore" then
     }

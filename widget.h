@@ -7,7 +7,7 @@
 #include <QDebug>
 #include <QString>
 #include <QMessageBox>
-#include <QProcess>
+#include <QDesktopServices>
 #include <limits>
 #include <QStandardPaths>
 #include <QFileDialog>
