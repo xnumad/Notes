@@ -249,6 +249,8 @@ void Widget::on_btnAdd_clicked() //event which is being triggered when the add b
     loadNotes();
     ui->lblNoteValue->setText(ui->lblNoteSum->text()); //set current note value to the highest possible to reach the last note
     readSingleNote(); //read this current note value and display the respective note in the UI
+    ui->txtNote->selectAll();
+    ui->txtNote->setFocus();
     ui->btnPreviousNote->setEnabled(true);
     ui->btnNextNote->setEnabled(false);
 }
