@@ -8,7 +8,6 @@
 #include <QString>
 #include <QMessageBox>
 #include <QDesktopServices>
-#include <limits>
 #include <QStandardPaths>
 #include <QFileDialog>
 
