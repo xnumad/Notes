@@ -46,6 +46,7 @@ private slots:
 
 private:
     Ui::Widget *ui;
+    string versionLine = "BG V12";
     void loadNotes();
     void readSingleNote();
     bool fileOkay(fstream *file);

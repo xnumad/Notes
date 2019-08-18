@@ -77,11 +77,11 @@ void Widget::loadNotes() //Method to load the notes, is being called on startup 
 
     if (file.eof())
         return;
-    if (currentLine != "BG V12" && file.good()) { //if the first line of the file does NOT match "BG V12" but contains following content
+    if (currentLine != versionLine && file.good()) { //if the first line of the file does NOT match versionLine but contains following content
         QString errorMessage = QString(tr("<p>Mismatch in first line\n" //will be rendered as HTML paragraphs //tr() enables translations
                                           "<p>Current:\t\"<b>%1</b>\"" //Tab doesn't seem to properly indent
-                                          "<p>Expected:\t\"<b>BG V12</b>\"\n"
-                                          "<p>Open the file in your text editor?")).arg(currentLine.c_str()); //Construct errorMessage with the current line as placeholder argument
+                                          "<p>Expected:\t\"<b>%2</b>\"\n"
+                                          "<p>Open the file in your text editor?")).arg(currentLine.c_str(), versionLine.c_str()); //Construct errorMessage with the current line and versionLine as placeholder argument
         QMessageBox errorBox;
         errorBox.setIcon(QMessageBox::Warning);
         errorBox.setWindowTitle("Warning");
@@ -212,7 +212,7 @@ void Widget::on_btnSave_clicked() //Saving procedure of the file, saveNotes()
     notes[ui->lblNoteValue->text().toInt() - 1] = ui->txtNote->toPlainText().toStdString();
 
     setupFile(true); //open file again, but this time to write (finally actually save) to it
-    file << "BG V12" << endl; //write version line
+    file << versionLine << endl; //write version line
     for (int i = 0; i < notes.size(); i++) //for each note in the notes vector
     {
         file << count(notes[i].begin(), notes[i].end(), '\n') + 1 << endl; //Write the count of occurrences of \n in the note. Add + 1 to it (because the last line doesn't have that char) and you have the line amount of the note
