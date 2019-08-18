@@ -56,7 +56,7 @@ void Widget::validateCurrentLine() //Method to validate the string to only conta
                                           "<p>Current:\t\"<b>%2</b>\""
                                           "<p>Expected:\tpositive number indicating the length of the following note\n"
                                           )).arg(QString::number(currentLineNr), currentLine.c_str()); //Construct errorMessage with the current line number and its content as placeholder argument
-        if (QMessageBox(QMessageBox::Critical, "Error", errorMessage, QMessageBox::Ok | QMessageBox::Ignore).exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
+        if (QMessageBox(QMessageBox::Critical, "Error", errorMessage, QMessageBox::Open | QMessageBox::Ignore).exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
             QDesktopServices::openUrl(ui->txtFilePath->text()); //open file using default file handler (e.g. text editor)
             exit(1); //Close program (exit with return code 1 (failure)) because of the invalid line
             //qApp->quit(); //shit doesn't work
