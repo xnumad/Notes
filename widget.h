@@ -55,6 +55,7 @@ private:
     fstream &GotoLine(fstream &file, int num);
     bool setupFile(bool save);
     void validateCurrentLine();
+    void invalidFileErrorBox(QString expectedLineContent);
 
     fstream file; //file object (opened and closed when needed)
     string currentLine = ""; //buffer variable to save the line which is currently being read

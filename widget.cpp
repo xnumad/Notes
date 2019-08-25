@@ -52,15 +52,7 @@ void Widget::validateCurrentLine() //Method to validate the string to only conta
     //    currentLine.end(), [](char c) { return !isdigit(c); }) == currentLine.end();
 
     if (currentLine.empty() || currentLine.find_first_not_of("0123456789") != string::npos) { //currentLine is empty or does not only consist of a number
-        QString errorMessage = QString(tr("<p>Mismatch in line %1\n"
-                                          "<p>Current:\t\"<b>%2</b>\""
-                                          "<p>Expected:\tpositive number indicating the length of the following note\n"
-                                          )).arg(QString::number(currentLineNr), currentLine.c_str()); //Construct errorMessage with the current line number and its content as placeholder argument
-        if (QMessageBox(QMessageBox::Critical, "Error", errorMessage, QMessageBox::Open | QMessageBox::Ignore).exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
-            QDesktopServices::openUrl(ui->txtFilePath->text()); //open file using default file handler (e.g. text editor)
-            exit(0); //Intentionally (hence with exit code 0 (success)) close program for the user to inspect the file
-        }
-        //else it will just continue because the user pressed "Ignore" then
+        invalidFileErrorBox("positive number indicating the length of the following note");
     }
 }
 
@@ -75,25 +67,7 @@ void Widget::loadNotes() //Method to load the notes, is being called on startup 
     if (file.eof())
         return;
     if (currentLine != versionLine && file.good()) { //if the first line of the file does NOT match versionLine but contains following content
-        QString errorMessage = QString(tr("<p>Mismatch in first line\n" //will be rendered as HTML paragraphs //tr() enables translations
-                                          "<p>Current:\t\"<b>%1</b>\"" //Tab doesn't seem to properly indent
-                                          "<p>Expected:\t\"<b>%2</b>\"\n"
-                                          "<p>Open the file in your text editor?")).arg(currentLine.c_str(), versionLine.c_str()); //Construct errorMessage with the current line and versionLine as placeholder argument
-        QMessageBox errorBox;
-        errorBox.setIcon(QMessageBox::Warning);
-        errorBox.setWindowTitle("Warning");
-        errorBox.setText("Invalid file");
-        errorBox.setInformativeText(errorMessage); //set the previously constructed errorMessage as informative text
-        errorBox.setStandardButtons(QMessageBox::Open | QMessageBox::Ignore); //give the user options to ignore the error or open the file
-        errorBox.button(QMessageBox::Open)->setText(tr("Open"));
-        errorBox.button(QMessageBox::Ignore)->setText(tr("Ignore"));
-        errorBox.setDefaultButton(QMessageBox::Open);
-
-        if (errorBox.exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
-            QDesktopServices::openUrl(ui->txtFilePath->text()); //open file using default file handler (e.g. text editor)
-            exit(0); //Intentionally (hence with exit code 0 (success)) close program for the user to inspect the file
-        }
-        //else it will just continue because the user pressed "Ignore" then
+        invalidFileErrorBox(versionLine.c_str());
     }
 
     //Build index
@@ -267,6 +241,26 @@ void Widget::on_btnChangeFile_clicked()
         loadNotes();
         readSingleNote();
     }
+}
+
+void Widget::invalidFileErrorBox(QString expectedLineContent)
+{
+    QMessageBox errorBox;
+    errorBox.setWindowTitle("Error");
+    errorBox.setIcon(QMessageBox::Critical);
+    errorBox.setText("Invalid file");
+    errorBox.setInformativeText(QString("<p>Mismatch in line %1\n"
+                                        "<p>Current:\t<b>%2</b>"
+                                        "<p>Expected:\t<b>%3</b>\n"
+                                        "<p>Open the file in your text editor?"
+                                        ).arg(QString::number(currentLineNr), currentLine.c_str(), expectedLineContent));
+    errorBox.setStandardButtons(QMessageBox::Open | QMessageBox::Ignore);
+
+    if (errorBox.exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
+        QDesktopServices::openUrl(ui->txtFilePath->text()); //open file using default file handler (e.g. text editor)
+        exit(0); //Intentionally (hence with exit code 0 (success)) close program for the user to inspect the file
+    }
+    //else it will just continue because the user pressed "Ignore" then
 }
 
 Widget::Widget(QWidget *parent) : //constructor
