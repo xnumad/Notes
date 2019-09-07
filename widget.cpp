@@ -110,6 +110,12 @@ void Widget::readSingleNote() //Read a single note
 
     int linesToRead = atoi(currentLine.c_str()); //will be used to keep the line count of the current note //Convert the number and use it as amount of lines to read
     for (int i = 1; i <= linesToRead; i++) { //for loop to load the note's content, iterates for each line
+        if (file.eof()) //Unexpected file ending due to higher than actual amount of lines specified for a note
+        {
+            invalidFileErrorBox("Still note content", "Non-existant line");
+            break; //elsewise resulting in the application duplicating lines when reading beyond end of file
+            //The application will cut the note (decrease the specified amount of lines) to the actual amount of lines when saving.
+        }
         getline(file, currentLine);
         currentLineNr++;
         ui->txtNote->appendPlainText(currentLine.c_str()); //repeatedly append currentLine to make the note fully appear
@@ -243,8 +249,11 @@ void Widget::on_btnChangeFile_clicked()
     }
 }
 
-void Widget::invalidFileErrorBox(QString expectedLineContent)
+void Widget::invalidFileErrorBox(QString expectedLineContent, QString currentLineContent)
 {
+    if (currentLineContent == nullptr) //default value
+        currentLineContent = currentLine.c_str();
+
     QMessageBox errorBox;
     errorBox.setWindowTitle("Error");
     errorBox.setIcon(QMessageBox::Critical);
@@ -253,7 +262,7 @@ void Widget::invalidFileErrorBox(QString expectedLineContent)
                                         "<p>Current:\t<b>%2</b>"
                                         "<p>Expected:\t<b>%3</b>\n"
                                         "<p>Open the file in your text editor?"
-                                        ).arg(QString::number(currentLineNr), currentLine.c_str(), expectedLineContent));
+                                        ).arg(QString::number(currentLineNr), currentLineContent, expectedLineContent));
     errorBox.setStandardButtons(QMessageBox::Open | QMessageBox::Ignore);
 
     if (errorBox.exec() == QMessageBox::Open) { //display errorBox and compare result with "Open button" to check if it was clicked
