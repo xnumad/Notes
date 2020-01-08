@@ -181,7 +181,7 @@ void Widget::on_btnSave_clicked() //Saving procedure of the file, saveNotes()
     //The part where to modify the data.
     //Using the from the file fetched data, it is now being "merged" with the editor data from the UI by overwriting that note
     qDebug() << "Saved: " << ui->txtNote->toPlainText();
-    //This line seems to be the culprit for a bug in which if you have two notes of which both only have one line and add a few lines to the first one, the second one looses its content
+    //This line seems to be the culprit for a bug in which if you have two notes of which both only have one line and add a few lines to the first one, the second one loses its content
     notes[ui->lblNoteValue->text().toInt() - 1] = ui->txtNote->toPlainText().toStdString();
 
     setupFile(true); //open file again, but this time to write (finally actually save) to it
