@@ -116,9 +116,6 @@
        </item>
        <item>
         <widget class="QCheckBox" name="chkAutosave">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="text">
           <string>Autosave</string>
          </property>

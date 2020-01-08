@@ -102,6 +102,9 @@ void Widget::readSingleNote() //Read a single note
     if (!setupFile()) //if setupFile() returned false, meaning it reports the file doesn't exist
         return; //don't load the single note
 
+    bool autosave_was_enabled = ui->chkAutosave->isChecked();
+    ui->chkAutosave->setChecked(false); //Disable autosave or the automatic saving process would be triggered while changing the textedit in the reading procedure. Gets re-enabled at the end.
+
     ui->txtNote->clear();
     GotoLine(file, startLines[ui->lblNoteValue->text().toInt() - 1]); //get the line to jump to by accessing the index vector in which the line of the note is being looked up. the note value itself is being derived directly from the UI
     getline(file, currentLine);
@@ -122,6 +125,9 @@ void Widget::readSingleNote() //Read a single note
     }
 
     file.close(); //close file stream
+
+    if (autosave_was_enabled)
+        ui->chkAutosave->setChecked(true); //Now that the text in the textedit is not being changed by the reading procedure, which would have triggered autosave, re-enable autosave if it was enabled
 }
 
 void Widget::on_btnNextNote_clicked() //event to load the next note, triggered when the respective button is being clicked
@@ -209,12 +215,10 @@ void Widget::on_txtNote_textChanged() //event which is being triggered when the 
 
 void Widget::on_chkAutosave_clicked() //event which is being triggered when the autosave checkbox is being changed/clicked
 {
-    if (ui->chkAutosave->checkState()) { //check if it was checked
-        ui->btnSave->setDisabled(true);
-        on_btnSave_clicked(); //withdraw ability to click the save button. It is not needed anymore as every change will be immediately written to the file
-    }
-    else //it was unchecked
-        ui->btnSave->setEnabled(true); //give ability to click the save button again as changes are now only manually being written
+    bool autosave = ui->chkAutosave->checkState();
+    ui->btnSave->setDisabled(autosave); //If autosave is enabled, disable Save button as every change will be written to the file immediately makes saving a redundant option
+    ui->btnReload->setDisabled(autosave); //Also disable Reload button because the changes can't be discarded when they're always being saved directly
+    on_btnSave_clicked(); //Save note in its current state because autosave is already on. If it is being disabled, this operation is unneccessary but doesn't change anything because the note is already saved in its current state by autosave anyways.
 }
 
 void Widget::on_btnAdd_clicked() //event which is being triggered when the add button is being clicked
