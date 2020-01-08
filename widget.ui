@@ -105,12 +105,12 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btnReload">
+        <widget class="QPushButton" name="btnDiscard">
          <property name="toolTip">
           <string>Undo all changes and load the note in its saved state</string>
          </property>
          <property name="text">
-          <string>Reset</string>
+          <string>Discard changes</string>
          </property>
         </widget>
        </item>
@@ -199,7 +199,7 @@
   <tabstop>btnPreviousNote</tabstop>
   <tabstop>btnNextNote</tabstop>
   <tabstop>btnAdd</tabstop>
-  <tabstop>btnReload</tabstop>
+  <tabstop>btnDiscard</tabstop>
   <tabstop>chkAutosave</tabstop>
   <tabstop>btnSave</tabstop>
   <tabstop>txtFilePath</tabstop>

@@ -217,7 +217,7 @@ void Widget::on_chkAutosave_clicked() //event which is being triggered when the 
 {
     bool autosave = ui->chkAutosave->checkState();
     ui->btnSave->setDisabled(autosave); //If autosave is enabled, disable Save button as every change will be written to the file immediately makes saving a redundant option
-    ui->btnReload->setDisabled(autosave); //Also disable Reload button because the changes can't be discarded when they're always being saved directly
+    ui->btnDiscard->setDisabled(autosave); //Also disable Discard button because the changes can't be discarded when they're always being saved directly
     on_btnSave_clicked(); //Save note in its current state because autosave is already on. If it is being disabled, this operation is unneccessary but doesn't change anything because the note is already saved in its current state by autosave anyways.
 }
 
@@ -236,7 +236,7 @@ void Widget::on_btnAdd_clicked() //event which is being triggered when the add b
     ui->btnNextNote->setEnabled(false);
 }
 
-void Widget::on_btnReload_clicked() //event which is being triggered when the reload button is being clicked
+void Widget::on_btnDiscard_clicked() //event which is being triggered when the reload button is being clicked
 {
     readSingleNote(); //just call the method to read the currently loaded note again
 }

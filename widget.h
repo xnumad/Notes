@@ -40,7 +40,7 @@ private slots:
 
     void on_btnAdd_clicked();
 
-    void on_btnReload_clicked();
+    void on_btnDiscard_clicked();
 
     void on_btnChangeFile_clicked();
 
