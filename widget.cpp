@@ -126,8 +126,7 @@ void Widget::readSingleNote() //Read a single note
 
     file.close(); //close file stream
 
-    if (autosave_was_enabled)
-        ui->chkAutosave->setChecked(true); //Now that the text in the textedit is not being changed by the reading procedure, which would have triggered autosave, re-enable autosave if it was enabled
+    ui->chkAutosave->setChecked(autosave_was_enabled); //Now that the text in the textedit is not being changed by the reading procedure anymore, which would have triggered autosave, re-enable autosave if it was enabled
 }
 
 void Widget::on_btnNextNote_clicked() //event to load the next note, triggered when the respective button is being clicked
