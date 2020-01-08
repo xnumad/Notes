@@ -20,9 +20,6 @@
       <layout class="QHBoxLayout" name="nav_buttons">
        <item>
         <widget class="QPushButton" name="btnPreviousNote">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="text">
           <string>&lt; Previous note</string>
          </property>

@@ -40,6 +40,11 @@ bool Widget::setupFile(bool save = false) //Method to open a file stream with re
     }
     if (!file.good()) { //if file isn't okay
         ui->lblStatusMessage->setText("File does not include note information");
+
+        //Disable navigation buttons as there are no notes
+        ui->btnNextNote->setEnabled(false);
+        ui->btnPreviousNote->setEnabled(false);
+
         return false; //tell the calling method to not even try reading a non-existant file
     }
     return true;
@@ -102,6 +107,9 @@ void Widget::readSingleNote() //Read a single note
     if (!setupFile()) //if setupFile() returned false, meaning it reports the file doesn't exist
         return; //don't load the single note
 
+    ui->btnPreviousNote->setDisabled(ui->lblNoteValue->text().toInt() == 1); //if reading first note, disable Previous note button, elsewise enable
+    ui->btnNextNote->setDisabled(ui->lblNoteValue->text().toInt() == ui->lblNoteSum->text().toInt()); //if reading last note, disable Next note button, elsewise enable
+
     bool autosave_was_enabled = ui->chkAutosave->isChecked();
     ui->chkAutosave->setChecked(false); //Disable autosave or the automatic saving process would be triggered while changing the textedit in the reading procedure. Gets re-enabled at the end.
 
@@ -131,15 +139,6 @@ void Widget::readSingleNote() //Read a single note
 
 void Widget::on_btnNextNote_clicked() //event to load the next note, triggered when the respective button is being clicked
 {
-    if (ui->lblNoteValue->text().toInt() + 1 >= ui->lblNoteSum->text().toInt()) { //if the current note value would reach the last note
-        ui->btnNextNote->setEnabled(false); //disable this button
-        ui->lblStatusMessage->setText("(~˘▾˘)~ You can add more notes with the Add button anytime"); //display a hint
-        if (ui->lblNoteValue->text().toInt() + 1 > ui->lblNoteSum->text().toInt()) //if it even would be a greater value
-            return;
-    }
-    if (ui->lblNoteValue->text().toInt() + 1 > 1) //if the current note value would reach a note which is not the first
-        ui->btnPreviousNote->setEnabled(true); //enable the option to browse back
-
     loadNotes(); //force index update first to fetch newest file status
     ui->lblNoteValue->setText(QString::number(ui->lblNoteValue->text().toInt() + 1)); //update the current note value
     readSingleNote(); //display the newly chosen note
@@ -147,14 +146,6 @@ void Widget::on_btnNextNote_clicked() //event to load the next note, triggered w
 
 void Widget::on_btnPreviousNote_clicked() //event to load the previous note, triggered when the respective button is being clicked
 {
-    if (ui->lblNoteValue->text().toInt() - 1 <= 1) { //if the current note value would reach the first note
-        ui->btnPreviousNote->setEnabled(false); //disable this button
-        if (ui->lblNoteValue->text().toInt() -1 < 1) //if it would be an even lower value
-            return;
-    }
-    if (ui->lblNoteValue->text().toInt() - 1 < ui->lblNoteSum->text().toInt()) //if the current note value would reach a note which is not the last
-        ui->btnNextNote->setEnabled(true); //enable the option to browse next
-
     loadNotes();
     ui->lblNoteValue->setText(QString::number(ui->lblNoteValue->text().toInt() - 1));
     readSingleNote();
